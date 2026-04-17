@@ -66,7 +66,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
             </div>
             
             <h1 className="font-display font-bold text-5xl md:text-7xl mb-8 tracking-tight leading-tight">
-              <ScrambleText text={project.title} />
+              {project.title}
             </h1>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-black/5 mb-12">

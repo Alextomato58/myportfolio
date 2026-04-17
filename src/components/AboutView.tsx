@@ -3,12 +3,20 @@ import { motion } from 'motion/react';
 import { STATS, BRANDS } from '../constants';
 import { ScrambleText } from './ScrambleText';
 import { TypewriterText } from './TypewriterText';
+import { SiteConfig } from '../types';
 
 import { useLanguage } from '../i18n/LanguageContext';
 
-export const AboutView: React.FC = () => {
+interface AboutViewProps {
+  config: SiteConfig | null;
+}
+
+export const AboutView: React.FC<AboutViewProps> = ({ config }) => {
   const { t, language } = useLanguage();
   const [githubRepos, setGithubRepos] = useState<string>('50+ Repos');
+
+  const portrait = config?.portraitUrl || "/portrait.jpg";
+  const bio = config?.introBody || t.about.bio;
 
   useEffect(() => {
     fetch('https://api.github.com/users/Alextomato58')
@@ -57,8 +65,8 @@ export const AboutView: React.FC = () => {
           className="relative"
         >
           <img 
-            src="/portrait.jpg" 
-            alt="Alex Wu Profile"
+            src={portrait} 
+            alt="Portrait"
             className="w-full aspect-[4/5] rounded-[48px] object-cover"
             referrerPolicy="no-referrer"
           />
@@ -77,7 +85,7 @@ export const AboutView: React.FC = () => {
           <p className="text-gray-400 font-medium mb-10 tracking-widest text-sm uppercase">/ Alex Wu /</p>
           
           <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-xl text-justify whitespace-pre-wrap">
-            {t.about.bio}
+            {bio}
           </p>
         </div>
       </div>

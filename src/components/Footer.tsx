@@ -1,27 +1,33 @@
 import React from 'react';
 import { SocialIcons } from './SocialIcons';
+import { SiteConfig } from '../types';
 
 interface FooterProps {
   onAboutClick: () => void;
+  config: SiteConfig | null;
 }
 
 import { useLanguage } from '../i18n/LanguageContext';
 
-export const Footer: React.FC<FooterProps> = ({ onAboutClick }) => {
+export const Footer: React.FC<FooterProps> = ({ onAboutClick, config }) => {
   const { t } = useLanguage();
+
+  const portrait = config?.portraitUrl || "/avatar.jpg";
+  const email = config?.email || "wbsept1@qq.com";
+  const role = config?.role || t.hero.role;
 
   return (
     <footer className="py-20 px-6 border-t border-black/5">
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         <div className="mb-10">
           <img 
-            src="/avatar.jpg" 
-            alt="Alex Wu Illustration"
+            src={portrait} 
+            alt="Portrait"
             className="w-16 h-16 aspect-square rounded-2xl object-cover mb-4 mx-auto"
             referrerPolicy="no-referrer"
           />
           <h4 className="font-display font-bold text-lg">Alex Wu</h4>
-          <p className="text-gray-400 text-sm font-medium">{t.hero.role}</p>
+          <p className="text-gray-400 text-sm font-medium">{role}</p>
         </div>
         
         <div className="space-y-4 mb-12">
@@ -36,10 +42,10 @@ export const Footer: React.FC<FooterProps> = ({ onAboutClick }) => {
         <div className="mb-20">
           <SocialIcons onAboutClick={onAboutClick} />
           <a 
-            href="mailto:wbsept1@qq.com" 
+            href={`mailto:${email}`} 
             className="mt-6 block text-gray-500 hover:text-black transition-colors font-medium text-lg underline underline-offset-4"
           >
-            wbsept1@qq.com
+            {email}
           </a>
         </div>
         

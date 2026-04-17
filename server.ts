@@ -9,12 +9,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DATA_FILE = path.join(process.cwd(), "projects-db.json");
+const CONFIG_FILE = path.join(process.cwd(), "site-config.json");
 const UPLOADS_DIR = path.join(process.cwd(), "uploads");
 
 // Ensure directories and files exist
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
+
+const INITIAL_CONFIG = {
+  greeting: "Hello, I'm Alex",
+  role: "Creative Developer & Video Editor",
+  introTitle: "A bit about me",
+  introBody: "I merge the technical logic of code with the emotional resonance of visual storytelling. Based in Shanghai, working globally.",
+  portraitUrl: "/portrait.jpg",
+  email: "wbsept1@qq.com"
+};
 
 const INITIAL_DATA = [
   {
@@ -52,6 +62,10 @@ if (!fs.existsSync(DATA_FILE)) {
   fs.writeFileSync(DATA_FILE, JSON.stringify(INITIAL_DATA, null, 2));
 }
 
+if (!fs.existsSync(CONFIG_FILE)) {
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(INITIAL_CONFIG, null, 2));
+}
+
 // Multer Config for File Uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -78,6 +92,27 @@ async function startServer() {
   app.use("/uploads", express.static(UPLOADS_DIR));
 
   // API Routes
+  app.get("/api/config", (req, res) => {
+    try {
+      const data = fs.readFileSync(CONFIG_FILE, "utf-8");
+      res.json(JSON.parse(data));
+    } catch (error) {
+      res.status(500).json({ error: "Failed to read config" });
+    }
+  });
+
+  app.post("/api/config", (req, res) => {
+    const isAdmin = req.headers['x-admin-mode'] === 'true';
+    if (!isAdmin) return res.status(403).json({ error: "Unauthorized" });
+
+    try {
+      fs.writeFileSync(CONFIG_FILE, JSON.stringify(req.body, null, 2));
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to save config" });
+    }
+  });
+
   app.get("/api/projects", (req, res) => {
     try {
       const data = fs.readFileSync(DATA_FILE, "utf-8");

@@ -29,3 +29,12 @@ export interface Stat {
   color: string;
   link: string;
 }
+
+export interface SiteConfig {
+  greeting: string;
+  role: string;
+  introTitle: string;
+  introBody: string;
+  portraitUrl: string;
+  email: string;
+}

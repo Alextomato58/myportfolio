@@ -6,13 +6,14 @@ import { PROJECTS } from '../constants';
 
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
-import { Project } from '../types';
+import { Project, SiteConfig } from '../types';
 import { AddProjectModal } from './AddProjectModal';
 import { Magnetic } from './Magnetic';
 import { ScrambleText } from './ScrambleText';
 
 interface WorkViewProps {
   projects: Project[];
+  config: SiteConfig;
   onAboutClick: () => void;
   onProjectClick: (project: Project) => void;
   onAddProject: (project: Project) => void;
@@ -21,7 +22,7 @@ interface WorkViewProps {
 
 import { useLanguage } from '../i18n/LanguageContext';
 
-export const WorkView: React.FC<WorkViewProps> = ({ projects, onAboutClick, onProjectClick, onAddProject, showAddButton = false }) => {
+export const WorkView: React.FC<WorkViewProps> = ({ projects, config, onAboutClick, onProjectClick, onAddProject, showAddButton = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useLanguage();
 
@@ -62,11 +63,11 @@ export const WorkView: React.FC<WorkViewProps> = ({ projects, onAboutClick, onPr
           </div>
           
           <h1 className="font-display font-bold text-6xl md:text-7xl mb-6 tracking-tight leading-tight">
-            <ScrambleText text={t.hero.greeting} />
+            <ScrambleText text={config.greeting} />
           </h1>
           
           <div className="flex flex-col gap-1 mb-8">
-            <span className="text-gray-500 font-medium tracking-wide font-display">{t.hero.role}</span>
+            <span className="text-gray-500 font-medium tracking-wide font-display">{config.role}</span>
           </div>
           
           <Magnetic>
@@ -80,18 +81,18 @@ export const WorkView: React.FC<WorkViewProps> = ({ projects, onAboutClick, onPr
             <motion.img 
               whileHover={{ scale: 1.1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              src="/portrait.jpg" 
-              alt="Alex Wu"
+              src={config.portraitUrl} 
+              alt="Portrait"
               className="w-24 h-24 md:w-32 md:h-32 rounded-3xl object-cover border-4 border-yellow-200 rotate-3 cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-300"
               referrerPolicy="no-referrer"
             />
           </div>
           <div className="max-w-xs">
             <h3 className="font-display font-semibold text-xl mb-2 flex items-center gap-2">
-              {t.hero.intro_title} <span className="text-2xl mt-[-4px]">👨‍💻</span>
+              {config.introTitle} <span className="text-2xl mt-[-4px]">👨‍💻</span>
             </h3>
             <p className="text-gray-500 text-sm leading-relaxed">
-              {t.hero.intro_body}
+              {config.introBody}
             </p>
           </div>
         </div>
