@@ -67,7 +67,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ config }) => {
           <img 
             src={portrait} 
             alt="Portrait"
-            className="w-full aspect-[4/5] rounded-[48px] object-cover"
+            className="w-full aspect-[3/4] rounded-[48px] object-cover"
             referrerPolicy="no-referrer"
           />
         </motion.div>

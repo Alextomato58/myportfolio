@@ -89,7 +89,7 @@ export const WorkView: React.FC<WorkViewProps> = ({ projects, config, onAboutCli
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               src={portrait} 
               alt="Portrait"
-              className="w-24 h-24 md:w-32 md:h-32 rounded-3xl object-cover border-4 border-yellow-200 rotate-3 cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="w-24 aspect-[3/4] md:w-32 rounded-3xl object-cover border-4 border-yellow-200 rotate-3 cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-300"
               referrerPolicy="no-referrer"
             />
           </div>
