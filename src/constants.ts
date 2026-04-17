@@ -5,7 +5,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   role: "Creative Developer & Video Editor",
   introTitle: "A bit about me",
   introBody: "I merge the technical logic of code with the emotional resonance of visual storytelling. Based in Shanghai, working globally.",
-  portraitUrl: "/portrait.jpg",
+  portraitUrl: "/portrait.png",
   email: "wbsept1@qq.com"
 };
 

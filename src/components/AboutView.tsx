@@ -15,7 +15,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ config }) => {
   const { t, language } = useLanguage();
   const [githubRepos, setGithubRepos] = useState<string>('50+ Repos');
 
-  const portrait = config?.portraitUrl || "/portrait.jpg";
+  const portrait = config?.portraitUrl || "/portrait.png";
   const bio = config?.introBody || t.about.bio;
 
   useEffect(() => {

@@ -12,7 +12,7 @@ import { useLanguage } from '../i18n/LanguageContext';
 export const Footer: React.FC<FooterProps> = ({ onAboutClick, config }) => {
   const { t } = useLanguage();
 
-  const portrait = config?.portraitUrl || "/avatar.jpg";
+  const portrait = config?.portraitUrl || "/avatar.png";
   const email = config?.email || "wbsept1@qq.com";
   const role = config?.role || t.hero.role;
 
