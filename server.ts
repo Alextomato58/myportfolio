@@ -3,11 +3,8 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import fs from "fs";
 import multer from "multer";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+// Use process.cwd() for persistent file storage paths
 const DATA_FILE = path.join(process.cwd(), "projects-db.json");
 const CONFIG_FILE = path.join(process.cwd(), "site-config.json");
 const UPLOADS_DIR = path.join(process.cwd(), "uploads");

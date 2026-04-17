@@ -10,7 +10,7 @@ import { CursorFollower } from './components/CursorFollower';
 import { ScrollProgress } from './components/ScrollProgress';
 import { SiteSettingsModal } from './components/SiteSettingsModal';
 
-import { PROJECTS as INITIAL_PROJECTS } from './constants';
+import { PROJECTS as INITIAL_PROJECTS, DEFAULT_SITE_CONFIG } from './constants';
 import { LanguageProvider } from './i18n/LanguageContext';
 
 function AppContent() {
@@ -19,7 +19,7 @@ function AppContent() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
+  const [siteConfig, setSiteConfig] = useState<SiteConfig>(DEFAULT_SITE_CONFIG);
 
   // Check for admin mode in URL
   useEffect(() => {
@@ -49,8 +49,10 @@ function AppContent() {
     const fetchConfig = async () => {
       try {
         const res = await fetch('/api/config');
-        const data = await res.json();
-        setSiteConfig(data);
+        if (res.ok) {
+          const data = await res.json();
+          setSiteConfig(data);
+        }
       } catch (error) {
         console.error("Failed to fetch site config:", error);
       }
@@ -168,7 +170,7 @@ function AppContent() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             >
-              {currentPage === 'work' && siteConfig ? (
+              {currentPage === 'work' ? (
                 <WorkView 
                   projects={projects}
                   config={siteConfig}
