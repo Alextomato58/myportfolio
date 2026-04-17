@@ -61,6 +61,10 @@ function AppContent() {
         
         if (res.ok && contentType && contentType.includes("application/json")) {
           const data = await res.json();
+          // Sanitize incoming config: if it still points to old .jpg, ignore it
+          if (data.portraitUrl && data.portraitUrl.endsWith('.jpg')) {
+            data.portraitUrl = "/portrait.png";
+          }
           setSiteConfig(data);
         }
       } catch (error) {
