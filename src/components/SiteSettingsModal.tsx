@@ -32,9 +32,13 @@ export const SiteSettingsModal: React.FC<SiteSettingsModalProps> = ({ isOpen, on
       if (res.ok) {
         const result = await res.json();
         setFormData(prev => ({ ...prev, portraitUrl: result.url }));
+      } else {
+        const errData = await res.json();
+        alert(`Upload failed: ${errData.error || res.statusText}`);
       }
     } catch (error) {
       console.error("Portrait upload failed:", error);
+      alert("Network error during upload. Please check your connection.");
     } finally {
       setIsUploading(false);
     }
