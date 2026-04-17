@@ -35,10 +35,18 @@ function AppContent() {
     const fetchProjects = async () => {
       try {
         const res = await fetch('/api/projects');
-        const data = await res.json();
-        setProjects(data);
+        const contentType = res.headers.get("content-type");
+        
+        if (res.ok && contentType && contentType.includes("application/json")) {
+          const data = await res.json();
+          setProjects(data.length > 0 ? data : INITIAL_PROJECTS);
+        } else {
+          // If response is not JSON (likely Vercel 404 html), use fallback
+          setProjects(INITIAL_PROJECTS);
+        }
       } catch (error) {
-        console.error("Failed to fetch projects:", error);
+        console.error("Failed to fetch projects, using initial data:", error);
+        setProjects(INITIAL_PROJECTS);
       }
     };
     fetchProjects();
@@ -49,12 +57,14 @@ function AppContent() {
     const fetchConfig = async () => {
       try {
         const res = await fetch('/api/config');
-        if (res.ok) {
+        const contentType = res.headers.get("content-type");
+        
+        if (res.ok && contentType && contentType.includes("application/json")) {
           const data = await res.json();
           setSiteConfig(data);
         }
       } catch (error) {
-        console.error("Failed to fetch site config:", error);
+        console.error("Failed to fetch site config, using default:", error);
       }
     };
     fetchConfig();
