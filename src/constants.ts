@@ -1,4 +1,4 @@
-import { Project, Brand, Stat } from './types';
+import { Project, Brand, Stat, SiteConfig } from './types';
 
 export const DEFAULT_SITE_CONFIG: SiteConfig = {
   greeting: "Hello, I'm Alex",
@@ -17,7 +17,7 @@ export const PROJECTS: Project[] = [
     fullDescription: 'This entry showcases the versatility of the updated portfolio system. It now seamlessly integrates embedded YouTube videos for visual demonstrations, high-performance code blocks for technical exposition, and direct links to external resources like GitHub or PDF documentation.',
     thumbnail: 'https://picsum.photos/seed/multimedia/800/600',
     videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder video
-    githubUrl: 'https://github.com/wb20030901',
+    githubUrl: 'https://github.com/Alextomato58',
     docUrl: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Placeholder PDF
     codeSnippet: `// Example: Custom Scramble Animation Logic
 const startScramble = (text: string) => {
